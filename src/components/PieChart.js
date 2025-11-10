@@ -8,7 +8,10 @@ const PieChart = ({ data }) => {
   const options = {
     responsive: true,
     plugins: {
-      legend: { position: 'top' },
+      legend: {
+        display: true,
+        position: 'right',
+      },
       title: { display: true, text: 'Sales by Category' },
     },
   };

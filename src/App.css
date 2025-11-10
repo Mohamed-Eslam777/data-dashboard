@@ -1,184 +1,239 @@
+/* ============ Base & Particles ============ */
+
 body {
   background-color: #f4f7f6;
-  font-family: Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
+/* ============ Bento Grid Layout ============ */
 .App {
-  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3-column grid */
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header header header"
+    "uploader controls controls"
+    "chart1 chart1 chart2"
+    "prompt prompt prompt"
+    "footer footer footer";
+  gap: 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 20px;
 }
 
-.App-header {
-  background-color: #007bff;
-  padding: 20px;
-  border-radius: 8px;
-  color: white;
-  margin-bottom: 30px;
+/* ============ Base Bento Card Style ============ */
+.bento-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 25px;
+  /* Cursors are handled by the global custom cursor */
 }
 
-.App-header h1 {
-  margin: 0;
-  font-size: 2.5rem;
-}
+/* ============ Grid Area Assignments ============ */
+.App-header { grid-area: header; }
+.upload-container { grid-area: uploader; }
+.controls-container { grid-area: controls; }
+.chart-wrapper-1 { grid-area: chart1; }
+.chart-wrapper-2 { grid-area: chart2; }
+.upload-prompt { grid-area: prompt; }
+.app-footer { grid-area: footer; }
 
+/* ============ Header & Logo ============ */
 .App-header .header-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px; /* Space between logo and text */
+  display: flex; align-items: center;
+  justify-content: center; gap: 15px;
 }
-
-.dashboard-logo {
-  font-size: 2.5rem; /* Make it large enough */
-  display: inline-block;
+.App-header h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; margin: 0; font-size: 2.2rem;
+}
+.dashboard-logo { /* (Keep existing logo styles) */
+  font-size: 2.5rem; display: inline-block;
   animation: rotate360 8s linear infinite;
   transition: animation-duration 0.3s ease;
-  cursor: pointer; /* Indicate it's interactive */
 }
+.dashboard-logo:hover { animation-duration: 1.5s; }
+@keyframes rotate360 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-.dashboard-logo:hover {
-  animation-duration: 1.5s; /* Speed up on hover */
-}
-
-@keyframes rotate360 {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.chart-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 30px;
-}
-
-.chart-wrapper {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-/* ============ Custom Cursor Styles ============ */
-html, body {
-  cursor: none; /* Hide default cursor */
-}
-
-.cursor-dot,
-.cursor-follower {
-  position: fixed;
-  top: 0;
-  left: 0;
-  border-radius: 50%;
-  z-index: 9999;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-}
-
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #1abc9c; /* Teal Accent */
-}
-
-.cursor-follower {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #1abc9c; /* Teal Accent */
-  transition: transform 0.2s ease-out;
-}
-
-/* Hide custom cursor on mobile */
-@media (max-width: 768px) {
-  .cursor-dot,
-  .cursor-follower {
-    display: none;
-  }
-  html, body {
-    cursor: auto; /* Bring back default cursor on mobile */
-  }
-}
-
-/* ============ Upload Component Styles ============ */
-.upload-container {
-  margin: 30px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  width: fit-content;
+/* ============ Controls & Upload Styles ============ */
+.upload-container, .controls-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .upload-label {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
-  padding: 12px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem; font-weight: 700; color: #fff;
+  background-color: #1abc9c; /* Teal Accent */
+  padding: 12px 20px; border-radius: 8px;
+  transition: all 0.3s ease;
+}
+input[type="file"] { display: none; }
+
+.control-group {
+  display: flex; flex-direction: column;
+  align-items: flex-start;
+}
+.control-label {
+  font-size: 0.9rem; font-weight: bold;
+  color: #333; margin-bottom: 8px;
+}
+.controls-container select {
+  font-family: 'Lato', sans-serif; font-size: 1rem;
+  padding: 8px 12px; border: 2px solid #ddd;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.upload-label:hover {
-  background-color: #0056b3;
+/* ============ Chart & Prompt Styles ============ */
+.upload-prompt p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem; color: #555; margin: 0;
 }
 
-/* Hide the default ugly input */
-input[type="file"] {
-  display: none;
+/* ============ Responsive (Mobile) ============ */
+@media (max-width: 768px) {
+  .App {
+    grid-template-columns: 1fr; /* Stack everything */
+    grid-template-areas:
+      "header"
+      "uploader"
+      "controls"
+      "chart1"
+      "chart2"
+      "prompt"
+      "footer";
+  }
 }
 
-.upload-prompt {
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #eef1f5;
-  border-radius: 8px;
+/* (Keep custom cursor styles as they are) */
+.cursor-dot { /* ... */ }
+.cursor-follower { /* ... */ }
+
+/* ============ Wave Background Styles ============ */
+.wave-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px; /* Height of the wave area */
+  overflow: hidden;
+  z-index: -5; /* Behind content */
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-color: transparent;
+  animation: wave-move 15s linear infinite;
+}
+
+.wave1 {
+  background-image: linear-gradient(to top, rgba(26, 188, 153, 0.6), transparent); /* Teal */
+  animation-duration: 20s;
+}
+
+.wave2 {
+  background-image: linear-gradient(to top, rgba(26, 188, 153, 0.4), transparent);
+  animation-duration: 15s;
+}
+
+.wave3 {
+  background-image: linear-gradient(to top, rgba(26, 188, 153, 0.2), transparent);
+  animation-duration: 10s;
+}
+
+@keyframes wave-move {
+ 0% { transform: translateX(0) translateZ(0) scaleY(1); }
+ 50% { transform: translateX(-25%) translateZ(0) scaleY(0.7); }
+ 100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+}
+
+/* ============ Upload Icon Animation ============ */
+.upload-icon {
+  font-size: 5rem;
+  color: #1abc9c; /* Teal accent */
+  margin-bottom: 10px;
+  animation: gentlePulse 2s infinite alternate ease-in-out; /* The animation */
 }
 
 .upload-prompt p {
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem;
   color: #555;
   margin: 0;
+  font-weight: 500;
 }
 
-/* ============ Control Selectors Styles ============ */
-.controls-container {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin: 30px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  width: fit-content;
+/* The Pulsing Keyframe */
+@keyframes gentlePulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
 }
 
-.control-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.control-label {
-  font-size: 0.9rem;
-  font-weight: bold;
+/* ============ Prompt List Styles ============ */
+.prompt-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
   color: #333;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px;
 }
 
-.controls-container select {
-  font-size: 1rem;
-  padding: 8px 12px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  cursor: pointer;
+.prompt-list {
+  list-style: disc; /* Use discs for list items */
+  padding-left: 20px;
+  text-align: left;
+  max-width: 450px; /* Keep it centered */
+  margin-top: 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
-.controls-container select:focus {
-  outline: none;
-  border-color: #007bff;
+.prompt-list li {
+  margin-bottom: 5px;
+}
+
+/* ============ Footer Styles ============ */
+.app-footer {
+  grid-area: footer; /* Assign to the footer area */
+  margin-top: 50px;
+  padding: 20px 0;
+  background-color: transparent; /* Seamless integration with background */
+  color: #555;
+  font-size: 0.9rem;
+  text-align: center;
+  width: 100%;
+}
+
+.app-footer p {
+  margin: 0 0 10px 0;
+  font-family: 'Lato', sans-serif;
+}
+
+.footer-links a {
+  margin: 0 10px;
+  color: #1abc9c; /* Teal Accent Color */
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #007bff; /* Secondary color on hover */
 }
