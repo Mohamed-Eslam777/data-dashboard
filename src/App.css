@@ -1,0 +1,184 @@
+body {
+  background-color: #f4f7f6;
+  font-family: Arial, sans-serif;
+}
+
+.App {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.App-header {
+  background-color: #007bff;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.App-header .header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px; /* Space between logo and text */
+}
+
+.dashboard-logo {
+  font-size: 2.5rem; /* Make it large enough */
+  display: inline-block;
+  animation: rotate360 8s linear infinite;
+  transition: animation-duration 0.3s ease;
+  cursor: pointer; /* Indicate it's interactive */
+}
+
+.dashboard-logo:hover {
+  animation-duration: 1.5s; /* Speed up on hover */
+}
+
+@keyframes rotate360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.chart-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+}
+
+.chart-wrapper {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ============ Custom Cursor Styles ============ */
+html, body {
+  cursor: none; /* Hide default cursor */
+}
+
+.cursor-dot,
+.cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  z-index: 9999;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #1abc9c; /* Teal Accent */
+}
+
+.cursor-follower {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #1abc9c; /* Teal Accent */
+  transition: transform 0.2s ease-out;
+}
+
+/* Hide custom cursor on mobile */
+@media (max-width: 768px) {
+  .cursor-dot,
+  .cursor-follower {
+    display: none;
+  }
+  html, body {
+    cursor: auto; /* Bring back default cursor on mobile */
+  }
+}
+
+/* ============ Upload Component Styles ============ */
+.upload-container {
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: fit-content;
+}
+
+.upload-label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.upload-label:hover {
+  background-color: #0056b3;
+}
+
+/* Hide the default ugly input */
+input[type="file"] {
+  display: none;
+}
+
+.upload-prompt {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #eef1f5;
+  border-radius: 8px;
+}
+
+.upload-prompt p {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 0;
+}
+
+/* ============ Control Selectors Styles ============ */
+.controls-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: fit-content;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.control-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.controls-container select {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.controls-container select:focus {
+  outline: none;
+  border-color: #007bff;
+}
